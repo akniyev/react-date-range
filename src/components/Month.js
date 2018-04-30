@@ -68,10 +68,19 @@ class Month extends PureComponent {
               const isEndOfMonth = isSameDay(day, monthDisplay.endDateOfMonth);
               const isOutsideMinMax =
                 (minDate && isBefore(day, minDate)) || (maxDate && isAfter(day, maxDate));
+
+              const badges = (this.props.highlightedDates || []).filter(
+                x =>
+                  x.date.getFullYear() === day.getFullYear() &&
+                  x.date.getMonth() === day.getMonth() &&
+                  x.date.getDate() === day.getDate()
+              );
+
               return (
                 <DayCell
                   {...this.props}
                   ranges={ranges}
+                  badge={badges.length > 0 ? badges[0].count : undefined}
                   day={day}
                   preview={showPreview ? this.props.preview : null}
                   isWeekend={isWeekend(day, this.props.dateOptions)}
@@ -129,6 +138,12 @@ Month.propTypes = {
   monthDisplayFormat: PropTypes.string,
   showWeekDays: PropTypes.bool,
   showMonthName: PropTypes.bool,
+  highlightedDates: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.instanceOf(Date).isRequired,
+      count: PropTypes.number.isRequired,
+    })
+  ),
 };
 
 export default Month;

@@ -271,7 +271,22 @@ export default class Main extends Component {
             locale={rdrLocales[this.state.locale]}
             date={this.state.datePickerInternational}
             onChange={this.handleChange.bind(this, 'datePickerInternational')}
+            onShownDateChange={date => {
+              console.log(date);
+            }}
             className={'PreviewArea'}
+            direction={'horizontal'}
+            months={2}
+            highlightedDates={[
+              {
+                date: new Date(2018, 3, 30),
+                count: 5,
+              },
+              {
+                date: new Date(2018, 3, 29),
+                count: 4,
+              },
+            ]}
           />
         </Section>
 

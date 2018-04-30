@@ -435,6 +435,7 @@ class Calendar extends PureComponent {
                   styles={this.styles}
                   showWeekDays={!isVertical || i === 0}
                   showMonthName={!isVertical || i > 0}
+                  highlightedDates={this.props.highlightedDates}
                 />
               );
             })}
@@ -507,6 +508,12 @@ Calendar.propTypes = {
   direction: PropTypes.oneOf(['vertical', 'horizontal']),
   navigatorRenderer: PropTypes.func,
   rangeColors: PropTypes.arrayOf(PropTypes.string),
+  highlightedDates: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.instanceOf(Date).isRequired,
+      count: PropTypes.number.isRequired,
+    })
+  ),
 };
 
 export default Calendar;

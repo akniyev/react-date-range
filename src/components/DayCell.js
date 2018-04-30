@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { startOfDay, format, isSameDay, isAfter, isBefore, endOfDay } from 'date-fns';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class DayCell extends Component {
   constructor(props, context) {
@@ -116,7 +117,7 @@ class DayCell extends Component {
   renderSelectionPlaceholders() {
     const { styles, ranges, day } = this.props;
     if (this.props.displayMode === 'date') {
-      let isSelected = isSameDay(this.props.day, this.props.date);
+      let isSelected = isSameDay(this.props.day, this.props.date) || this.props.badge;
       return isSelected ? (
         <span className={styles.selected} style={{ color: this.props.color }} />
       ) : null;
@@ -156,7 +157,7 @@ class DayCell extends Component {
           [styles.endEdge]: range.isEndEdge,
           [styles.inRange]: range.isInRange,
         })}
-        style={{ color: range.color || this.props.color }}
+        style={{ color: range.color || (this.props.badge ? 'green' : this.props.color) }}
       />
     ));
   }
@@ -180,6 +181,7 @@ class DayCell extends Component {
         {this.renderPreviewPlaceholder()}
         <span className={styles.dayNumber}>
           <span>{format(this.props.day, 'D')}</span>
+          {this.props.badge && <span className="badge badge-primary">{this.props.badge}</span>}
         </span>
       </button>
     );
@@ -206,6 +208,7 @@ DayCell.propTypes = {
     startDate: PropTypes.object,
     endDate: PropTypes.object,
   }),
+  badge: PropTypes.number,
   onPreviewChange: PropTypes.func,
   previewColor: PropTypes.string,
   disabled: PropTypes.bool,
