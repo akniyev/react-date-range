@@ -36,7 +36,7 @@
     "bootstrap": "^4.1.0",
     "classnames": "^2.2.1",
     "date-fns": "2.0.0-alpha.7",
-    "npm": "^6.0.0",
+    "npm": "^6.4.1",
     "prop-types": "^15.5.10",
     "react-list": "^0.8.8"
   },

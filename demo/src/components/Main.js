@@ -287,6 +287,8 @@ export default class Main extends Component {
                 count: 4,
               },
             ]}
+            highlightedColor={'blue'}
+            highlightedSelectedColor={'red'}
           />
         </Section>
 

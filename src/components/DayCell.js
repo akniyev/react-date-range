@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { startOfDay, format, isSameDay, isAfter, isBefore, endOfDay } from 'date-fns';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 class DayCell extends Component {
   constructor(props, context) {
@@ -117,9 +116,18 @@ class DayCell extends Component {
   renderSelectionPlaceholders() {
     const { styles, ranges, day } = this.props;
     if (this.props.displayMode === 'date') {
-      let isSelected = isSameDay(this.props.day, this.props.date) || this.props.badge;
-      return isSelected ? (
-        <span className={styles.selected} style={{ color: this.props.color }} />
+      let isSelected = isSameDay(this.props.day, this.props.date);
+      let hightlightecColor = this.props.highlightedColor || 'green';
+      let highlightedSelectedColor = this.props.highlightedSelectedColor || 'darkgreen';
+      return isSelected || this.props.badge ? (
+        <span
+          className={styles.selected}
+          style={{
+            color: this.props.badge
+              ? isSelected ? highlightedSelectedColor : hightlightecColor
+              : this.props.color,
+          }}
+        />
       ) : null;
     }
 
@@ -157,7 +165,7 @@ class DayCell extends Component {
           [styles.endEdge]: range.isEndEdge,
           [styles.inRange]: range.isInRange,
         })}
-        style={{ color: range.color || (this.props.badge ? 'green' : this.props.color) }}
+        style={{ color: range.color || this.props.color }}
       />
     ));
   }
@@ -225,6 +233,8 @@ DayCell.propTypes = {
   onMouseDown: PropTypes.func,
   onMouseUp: PropTypes.func,
   onMouseEnter: PropTypes.func,
+  highlightedColor: PropTypes.string,
+  highlightedSelectedColor: PropTypes.string,
 };
 
 export default DayCell;

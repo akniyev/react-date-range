@@ -1,3 +1,4 @@
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { rangeShape } from './DayCell.js';
@@ -436,6 +437,8 @@ class Calendar extends PureComponent {
                   showWeekDays={!isVertical || i === 0}
                   showMonthName={!isVertical || i > 0}
                   highlightedDates={this.props.highlightedDates}
+                  highlightedColor={this.props.highlightedColor}
+                  highlightedSelectedColor={this.props.highlightedSelectedColor}
                 />
               );
             })}
@@ -514,6 +517,8 @@ Calendar.propTypes = {
       count: PropTypes.number.isRequired,
     })
   ),
+  highlightedColor: PropTypes.string,
+  highlightedSelectedColor: PropTypes.string,
 };
 
 export default Calendar;

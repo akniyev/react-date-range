@@ -26,7 +26,7 @@ function renderWeekdays(styles, dateOptions) {
         end: endOfWeek(now, dateOptions),
       }).map((day, i) => (
         <span className={styles.weekDay} key={i}>
-          {format(day, 'ddd', dateOptions)}
+          {format(day, 'dd', dateOptions)}
         </span>
       ))}
     </div>
@@ -103,6 +103,8 @@ class Month extends PureComponent {
                   onMouseEnter={this.props.onDragSelectionMove}
                   dragRange={drag.range}
                   drag={drag.status}
+                  highlightedColor={this.props.highlightedColor}
+                  highlightedSelectedColor={this.props.highlightedSelectedColor}
                 />
               );
             }
@@ -144,6 +146,8 @@ Month.propTypes = {
       count: PropTypes.number.isRequired,
     })
   ),
+  highlightedColor: PropTypes.string,
+  highlightedSelectedColor: PropTypes.string,
 };
 
 export default Month;
