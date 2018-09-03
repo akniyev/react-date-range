@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Calendar, DateRange, DateRangePicker, DefinedRange } from '../../../src';
+import { Calendar, Calendar2, DateRange, DateRangePicker, DefinedRange } from '../../../src';
 import * as rdrLocales from '../../../src/locale';
 import { format, addDays } from 'date-fns';
 import Section from './Section';
@@ -65,6 +65,10 @@ export default class Main extends Component {
     super(props, context);
 
     this.state = {
+      myCalendarProps: {
+        selectedDates: [],
+        mobile: false,
+      },
       dateRange: {
         selection: {
           startDate: new Date(),
@@ -142,6 +146,54 @@ export default class Main extends Component {
     return (
       <main className={'Main'}>
         <h1 className={'Title'}>React-date-range</h1>
+
+        <Section title="My own calendar">
+          <div />
+          <Calendar2
+            locale={rdrLocales['ru']}
+            date={this.state.myCalendarProps.selectedDate}
+            onChange={e => {
+              let date = e;
+
+              this.setState(p => {
+                let myCalendarProps = p.myCalendarProps;
+                let selectedDates = myCalendarProps.selectedDates;
+
+                let filtered = selectedDates.filter(
+                  x =>
+                    x.getFullYear() !== date.getFullYear() ||
+                    x.getMonth() !== date.getMonth() ||
+                    x.getDate() !== date.getDate()
+                );
+
+                if (filtered.length === selectedDates.length) {
+                  filtered = [...filtered, date];
+                }
+
+                return { ...p, myCalendarProps: { ...myCalendarProps, selectedDates: filtered } };
+              });
+            }}
+            onShownDateChange={date => {
+              console.log(date);
+            }}
+            className={'PreviewArea'}
+            direction={'horizontal'}
+            months={this.state.myCalendarProps.mobile ? 1 : 2}
+            highlightedDates={[
+              {
+                date: new Date(2018, 9, 15),
+                count: 1,
+              },
+              {
+                date: new Date(2018, 9, 29),
+                count: undefined,
+              },
+            ]}
+            highlightedColor={'#6596E3'}
+            highlightedSelectedColor={'darkblue'}
+            selectedDates={this.state.myCalendarProps.selectedDates}
+          />
+        </Section>
 
         <Section title="DateRangePicker - 2 month">
           <div>
