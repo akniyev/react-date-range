@@ -332,11 +332,11 @@ export default class Main extends Component {
             highlightedDates={[
               {
                 date: new Date(2018, 3, 30),
-                count: 5,
+                count: '5',
               },
               {
                 date: new Date(2018, 3, 29),
-                count: 4,
+                count: '4',
               },
             ]}
             highlightedColor={'blue'}
