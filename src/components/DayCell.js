@@ -216,7 +216,7 @@ DayCell.propTypes = {
     startDate: PropTypes.object,
     endDate: PropTypes.object,
   }),
-  badge: PropTypes.number,
+  badge: PropTypes.any,
   onPreviewChange: PropTypes.func,
   previewColor: PropTypes.string,
   disabled: PropTypes.bool,

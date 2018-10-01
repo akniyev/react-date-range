@@ -92,9 +92,9 @@ class Calendar2 extends PureComponent {
   updateShownDate(props = this.props) {
     const newProps = props.scroll.enabled
       ? {
-        ...props,
-        months: this.list.getVisibleRange().length,
-      }
+          ...props,
+          months: this.list.getVisibleRange().length,
+        }
       : props;
     const newFocus = calcFocusDate(this.state.focusedDate, newProps);
     this.focusToDate(newFocus, newProps);
@@ -117,7 +117,8 @@ class Calendar2 extends PureComponent {
       setTimeout(() => this.focusToDate(this.state.focusedDate), 1);
     }
   }
-  componentWillReceiveProps(nextProps) {
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const propMapper = {
       dateRange: 'ranges',
       date: 'date',
@@ -514,7 +515,7 @@ Calendar2.propTypes = {
   highlightedDates: PropTypes.arrayOf(
     PropTypes.shape({
       date: PropTypes.instanceOf(Date).isRequired,
-      count: PropTypes.number.isRequired,
+      count: PropTypes.any,
     })
   ),
   highlightedColor: PropTypes.string,

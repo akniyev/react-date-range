@@ -153,7 +153,7 @@ Month2.propTypes = {
   highlightedDates: PropTypes.arrayOf(
     PropTypes.shape({
       date: PropTypes.instanceOf(Date).isRequired,
-      count: PropTypes.number.isRequired,
+      count: PropTypes.any,
     })
   ),
   highlightedColor: PropTypes.string,

@@ -186,7 +186,7 @@ export default class Main extends Component {
               },
               {
                 date: new Date(2018, 9, 29),
-                count: undefined,
+                count: 0,
               },
             ]}
             highlightedColor={'#6596E3'}

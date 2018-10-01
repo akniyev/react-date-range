@@ -120,13 +120,16 @@ class DayCell2 extends Component {
       let isSelected = this.props.isSelected; //isSameDay(this.props.day, this.props.date);
       let hightlightecColor = this.props.highlightedColor || '#6596E3';
       let highlightedSelectedColor = this.props.highlightedSelectedColor || 'darkblue';
-      return this.props.isHighlighted ? (
+      let simpleSelectionColor = this.props.selectedColor || '#c1c7d4';
+      return this.props.isHighlighted || this.props.isSelected ? (
         <span
           className={styles.selected}
           style={{
             color: this.props.isHighlighted
-              ? isSelected ? highlightedSelectedColor : hightlightecColor
-              : '',
+              ? isSelected
+                ? highlightedSelectedColor
+                : hightlightecColor
+              : simpleSelectionColor,
           }}
         />
       ) : null;
@@ -190,7 +193,10 @@ class DayCell2 extends Component {
         {this.renderPreviewPlaceholder()}
         <span className={styles.dayNumber}>
           <span>{format(this.props.day, 'D')}</span>
-          {this.props.badge && <span className="badge badge-primary">[{this.props.badge}]</span>}
+          {this.props.badge !== undefined &&
+            this.props.badge !== null && (
+              <span className="badge badge-primary">{`${this.props.badge}`}</span>
+            )}
         </span>
       </button>
     );
@@ -217,7 +223,7 @@ DayCell2.propTypes = {
     startDate: PropTypes.object,
     endDate: PropTypes.object,
   }),
-  badge: PropTypes.number,
+  badge: PropTypes.any,
   onPreviewChange: PropTypes.func,
   previewColor: PropTypes.string,
   disabled: PropTypes.bool,
@@ -236,6 +242,7 @@ DayCell2.propTypes = {
   onMouseEnter: PropTypes.func,
   highlightedColor: PropTypes.string,
   highlightedSelectedColor: PropTypes.string,
+  selectedColor: PropTypes.string,
   isSelected: PropTypes.bool,
   isHighlighted: PropTypes.bool,
 };
