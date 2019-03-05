@@ -161,6 +161,11 @@ class Calendar extends PureComponent {
       onShownDateChange && onShownDateChange(visibleMonth);
     }
   }
+
+  uppercasedFirstLetter(s) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
   renderMonthAndYear(focusedDate, changeShownDate, props) {
     const { showMonthArrow, locale, minDate, maxDate } = props;
     const upperYearLimit = maxDate.getFullYear();
@@ -183,7 +188,7 @@ class Calendar extends PureComponent {
               onChange={e => changeShownDate(e.target.value, 'setMonth')}>
               {locale.localize.months().map((month, i) => (
                 <option key={i} value={i}>
-                  {month}
+                  {this.uppercasedFirstLetter(month)}
                 </option>
               ))}
             </select>

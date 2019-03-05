@@ -25,7 +25,7 @@ import {
   min,
   max,
 } from 'date-fns';
-import defaultLocale from 'date-fns/locale/en-US';
+import defaultLocale from 'date-fns/locale/ru';
 import coreStyles from '../styles';
 
 class Calendar2 extends PureComponent {
@@ -162,6 +162,11 @@ class Calendar2 extends PureComponent {
       onShownDateChange && onShownDateChange(visibleMonth);
     }
   }
+
+  uppercasedFirstLetter(s) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
   renderMonthAndYear(focusedDate, changeShownDate, props) {
     const { showMonthArrow, locale, minDate, maxDate } = props;
     const upperYearLimit = maxDate.getFullYear();
@@ -184,7 +189,7 @@ class Calendar2 extends PureComponent {
               onChange={e => changeShownDate(e.target.value, 'setMonth')}>
               {locale.localize.months().map((month, i) => (
                 <option key={i} value={i}>
-                  {month}
+                  {this.uppercasedFirstLetter(month)}
                 </option>
               ))}
             </select>
@@ -387,6 +392,7 @@ class Calendar2 extends PureComponent {
                   return (
                     <Month2
                       {...this.props}
+                      locale={this.props.locale}
                       onPreviewChange={this.props.onPreviewChange || this.updatePreview}
                       preview={this.props.preview || this.state.preview}
                       ranges={ranges}

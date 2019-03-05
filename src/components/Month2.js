@@ -36,38 +36,52 @@ function renderWeekdays(styles, dateOptions) {
 class Month2 extends PureComponent {
   render() {
     const now = new Date();
-    const { displayMode, focusedRange, drag, styles } = this.props;
+    const { drag, styles } = this.props;
     const minDate = this.props.minDate && startOfDay(this.props.minDate);
     const maxDate = this.props.maxDate && endOfDay(this.props.maxDate);
     const monthDisplay = getMonthDisplayRange(this.props.month, this.props.dateOptions);
-    let ranges = this.props.ranges;
-    if (displayMode === 'dateRange' && drag.status) {
-      let { startDate, endDate } = drag.range;
-      ranges = ranges.map((range, i) => {
-        if (i !== focusedRange[0]) return range;
-        return {
-          ...range,
-          startDate,
-          endDate,
-        };
-      });
-    }
+    // console.log('monthDisplay', monthDisplay);
+    // console.log(minDate, maxDate);
+    // let ranges = this.props.ranges;
+    // if (displayMode === 'dateRange' && drag.status) {
+    //   let { startDate, endDate } = drag.range;
+    //   ranges = ranges.map((range, i) => {
+    //     if (i !== focusedRange[0]) return range;
+    //     return {
+    //       ...range,
+    //       startDate,
+    //       endDate,
+    //     };
+    //   });
+    // }
     const showPreview = this.props.showPreview && !drag.disablePreview;
+    var localizedMonthName = this.props.locale.localize.month(this.props.month.getMonth(), {
+      width: 'abbreviated',
+    });
+    localizedMonthName =
+      localizedMonthName.charAt(0).toUpperCase() +
+      localizedMonthName.slice(1) +
+      ' ' +
+      format(this.props.month, 'YYYY');
+
     return (
       <div className={styles.month} style={this.props.style}>
         {this.props.showMonthName ? (
           <div className={styles.monthName}>
-            {format(this.props.month, this.props.monthDisplayFormat)}
+            {localizedMonthName}
           </div>
         ) : null}
         {this.props.showWeekDays && renderWeekdays(styles, this.props.dateOptions)}
         <div className={styles.days} onMouseLeave={this.props.onMouseLeave}>
           {eachDayOfInterval({ start: monthDisplay.start, end: monthDisplay.end }).map(
             (day, index) => {
+              // console.log('day-index', day, index);
               const isStartOfMonth = isSameDay(day, monthDisplay.startDateOfMonth);
               const isEndOfMonth = isSameDay(day, monthDisplay.endDateOfMonth);
               const isOutsideMinMax =
                 (minDate && isBefore(day, minDate)) || (maxDate && isAfter(day, maxDate));
+
+              // console.log(day, startOfWeek(day, this.props.dateOptions));
 
               const badges = (this.props.highlightedDates || []).filter(
                 x =>
@@ -87,7 +101,7 @@ class Month2 extends PureComponent {
               return (
                 <DayCell2
                   {...this.props}
-                  ranges={ranges}
+                  // ranges={ranges}
                   badge={badges.length > 0 ? badges[0].count : undefined}
                   isHighlighted={badges.length > 0}
                   day={day}
@@ -128,6 +142,7 @@ class Month2 extends PureComponent {
 Month2.defaultProps = {};
 
 Month2.propTypes = {
+  locale: PropTypes.object,
   style: PropTypes.object,
   styles: PropTypes.object,
   month: PropTypes.object,

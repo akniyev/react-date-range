@@ -53,11 +53,19 @@ class Month extends PureComponent {
       });
     }
     const showPreview = this.props.showPreview && !drag.disablePreview;
+    var localizedMonthName = this.props.locale.localize.month(this.props.month.getMonth(), {
+      width: 'abbreviated',
+    });
+    localizedMonthName =
+      localizedMonthName.charAt(0).toUpperCase() +
+      localizedMonthName.slice(1) +
+      ' ' +
+      format(this.props.month, 'YYYY');
     return (
       <div className={styles.month} style={this.props.style}>
         {this.props.showMonthName ? (
           <div className={styles.monthName}>
-            {format(this.props.month, this.props.monthDisplayFormat)}
+            {localizedMonthName}
           </div>
         ) : null}
         {this.props.showWeekDays && renderWeekdays(styles, this.props.dateOptions)}

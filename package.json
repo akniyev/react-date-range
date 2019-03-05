@@ -1,10 +1,10 @@
 {
   "name": "react-date-range-with-events",
-  "version": "1.0.1-alpha17",
+  "version": "1.0.1-alpha21",
   "description": "A React component for choosing dates and date ranges.",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "NODE_ENV=development & webpack-dev-server --hot --inline",
+    "dev": "NODE_ENV=development & webpack-dev-server --host 0.0.0.0 --port 8881 --hot --inline",
     "clear": "rm -rf dist/* & rm -rf demo/dist/*",
     "build": "NODE_ENV=production & yarn build-library & yarn build-demo",
     "build-demo": "webpack -p",
