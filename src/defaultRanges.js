@@ -45,7 +45,7 @@ const staticRangeHandler = {
 };
 
 export function createStaticRanges(ranges) {
-  return ranges.map(range => new Proxy(range, staticRangeHandler));
+  // return ranges.map(range => new Proxy(range, staticRangeHandler));
 }
 
 export const defaultStaticRanges = createStaticRanges([
